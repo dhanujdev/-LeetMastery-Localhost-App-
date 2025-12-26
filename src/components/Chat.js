@@ -2,7 +2,6 @@
 import { useState, useRef, useEffect } from 'react';
 
 export default function Chat({ problem, code }) {
-    const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
@@ -14,7 +13,7 @@ export default function Chat({ problem, code }) {
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages, loading, isOpen]);
+    }, [messages, loading]);
 
     const sendMessage = async (text) => {
         if (!text && !input) return;
@@ -64,158 +63,68 @@ Be concise and helpful.
         }
     };
 
-    // Styles
-    const drawerStyle = {
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        width: '400px',
-        height: '100vh',
-        backgroundColor: '#1e1e1e',
-        borderLeft: '1px solid #333',
-        zIndex: 100,
-        display: 'flex',
-        flexDirection: 'column',
-        boxShadow: '-4px 0 20px rgba(0,0,0,0.5)',
-        transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform 0.3s ease-in-out',
-    };
-
-    const headerStyle = {
-        padding: '16px',
-        backgroundColor: '#252526',
-        borderBottom: '1px solid #333',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        color: '#e5e7eb',
-        fontWeight: '600'
-    };
-
-    const messagesAreaStyle = {
-        flex: 1,
-        overflowY: 'auto',
-        padding: '16px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        color: '#d4d4d4'
-    };
-
-    const inputAreaStyle = {
-        padding: '16px',
-        backgroundColor: '#252526',
-        borderTop: '1px solid #333',
-        display: 'flex',
-        gap: '8px'
-    };
-
-    const textInputStyle = {
-        flex: 1,
-        backgroundColor: '#3c3c3c',
-        color: 'white',
-        border: '1px solid #3c3c3c',
-        borderRadius: '4px',
-        padding: '8px 12px',
-        outline: 'none',
-        fontSize: '14px'
-    };
-
-    const buttonStyle = {
-        backgroundColor: '#0e639c',
-        color: 'white',
-        padding: '8px 16px',
-        borderRadius: '4px',
-        border: 'none',
-        cursor: 'pointer',
-        fontSize: '14px',
-        fontWeight: '500'
-    };
-
-    const fabStyle = {
-        position: 'fixed',
-        bottom: '24px',
-        right: '24px',
-        width: '56px',
-        height: '56px',
-        borderRadius: '50%',
-        backgroundColor: '#0e639c',
-        color: 'white',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '24px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-        border: 'none',
-        cursor: 'pointer',
-        zIndex: 90,
-        transition: 'transform 0.2s',
-        transform: 'scale(1)',
-    };
-
     return (
-        <>
-            {/* Floating Toggle Button (Only visible when closed) */}
-            {!isOpen && (
-                <button
-                    onClick={() => setIsOpen(true)}
-                    style={fabStyle}
-                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                >
-                    ✨
-                </button>
-            )}
-
-            {/* Drawer */}
-            <div style={drawerStyle}>
-
-                {/* Header */}
-                <div style={headerStyle}>
-                    <span>AI Assistant</span>
+        <div className="flex flex-col h-full bg-[var(--bg-panel)]">
+            {/* Header */}
+            <div className="h-[43px] shrink-0 bg-[var(--bg-secondary)] border-b border-[var(--border-subtle)] flex items-center justify-between px-3">
+                <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-[10px] text-white font-bold tracking-tighter shadow-sm">AI</div>
+                    <span className="text-xs font-bold text-[var(--text-primary)] tracking-tight">Coding Coach</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1.5 bg-[var(--bg-app)] px-2 py-0.5 rounded-full border border-[var(--border-default)]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--success)] animate-pulse shadow-[0_0_4px_var(--success)]"></span>
+                        <span className="text-[9px] text-[var(--text-secondary)] uppercase tracking-wider font-semibold">Online</span>
+                    </div>
                     <button
-                        onClick={() => setIsOpen(false)}
-                        style={{ background: 'none', border: 'none', color: '#9ca3af', cursor: 'pointer', fontSize: '18px' }}
+                        onClick={() => setMessages([])}
+                        className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors"
+                        title="Clear Chat"
                     >
-                        ✕
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
                     </button>
                 </div>
+            </div>
 
-                {/* Messages */}
-                <div style={messagesAreaStyle}>
-                    {messages.length === 0 && (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: '16px', color: '#858585' }}>
-                            <div style={{ fontSize: '32px' }}>🤖</div>
-                            <p style={{ textAlign: 'center' }}>How can I help you with<br /><strong style={{ color: '#d4d4d4' }}>{problem.title}</strong>?</p>
-                            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                <SuggestionButton onClick={() => sendMessage("Explain this problem")} label="Explain Problem" />
-                                <SuggestionButton onClick={() => sendMessage("Give me a hint")} label="Give Hint" />
+            {/* Messages */}
+            < div className="flex-1 overflow-y-auto p-3 flex flex-col gap-4 custom-scrollbar" >
+                {
+                    messages.length === 0 && (
+                        <div className="flex flex-col items-center justify-center h-full gap-4 text-[var(--text-tertiary)] opacity-60">
+                            <div className="text-4xl grayscale">✨</div>
+                            <p className="text-center text-xs px-4 leading-relaxed">
+                                I'm your local AI pair programmer.<br />
+                                Ask me to explain the problem, debug your code, or give a hint.
+                            </p>
+                            <div className="w-full flex flex-col gap-2 px-6">
+                                <SuggestionButton onClick={() => sendMessage("Explain this problem to me intuitively")} label="Explain Concept" />
+                                <SuggestionButton onClick={() => sendMessage("What data structure fits best here?")} label="Suggest Approach" />
+                                <SuggestionButton onClick={() => sendMessage("Review my code for potential bugs")} label="Review Code" />
                             </div>
                         </div>
-                    )}
+                    )
+                }
 
-                    {messages.map((msg, idx) => (
-                        <div key={idx} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
-                            <div style={{
-                                maxWidth: '90%',
-                                padding: '12px 14px',
-                                borderRadius: '12px',
-                                borderBottomRightRadius: msg.role === 'user' ? '2px' : '12px',
-                                borderBottomLeftRadius: msg.role === 'user' ? '12px' : '2px',
-                                fontSize: '14px',
-                                lineHeight: '1.6',
-                                backgroundColor: msg.role === 'user' ? '#0e639c' : '#252526',
-                                color: msg.role === 'user' ? 'white' : '#e0e0e0',
-                                border: msg.role === 'user' ? 'none' : '1px solid #333',
-                                boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
-                            }}>
-                                {/* Custom Markdown Renderer for "Real AI" feel */}
+                {
+                    messages.map((msg, idx) => (
+                        <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                            <span className="text-[10px] text-[var(--text-tertiary)] mb-1 px-1">
+                                {msg.role === 'user' ? 'You' : 'AI'}
+                            </span>
+                            <div className={`max-w-[95%] p-3 rounded-lg text-[13px] leading-relaxed border shadow-sm
+                            ${msg.role === 'user'
+                                    ? 'bg-[var(--bg-secondary)] text-[var(--text-primary)] border-[var(--border-default)]'
+                                    : 'bg-transparent text-[var(--text-secondary)] border-transparent pl-0'
+                                }`}>
+                                {/* Simple Message Renderer */}
                                 {msg.content.split('```').map((part, i) => {
                                     if (i % 2 === 1) { // Code Block
                                         return (
-                                            <div key={i} style={{ margin: '8px 0', borderRadius: '6px', overflow: 'hidden', border: '1px solid #444' }}>
-                                                <div style={{ backgroundColor: '#1e1e1e', padding: '12px', overflowX: 'auto' }}>
-                                                    <pre style={{ margin: 0, fontFamily: 'Consolas, monospace', fontSize: '13px', color: '#9cdcfe' }}>
+                                            <div key={i} className="my-2 rounded-md overflow-hidden border border-[var(--border-default)] bg-[#1e1e1e] shadow-inner">
+                                                <div className="p-2 overflow-x-auto">
+                                                    <pre className="m-0 font-mono text-[11px] text-[#9cdcfe] leading-5">
                                                         {part.trim()}
                                                     </pre>
                                                 </div>
@@ -223,10 +132,10 @@ Be concise and helpful.
                                         )
                                     } else { // Text
                                         return (
-                                            <span key={i} style={{ whiteSpace: 'pre-wrap' }}>
+                                            <span key={i} className="whitespace-pre-wrap">
                                                 {part.split('`').map((subPart, j) => (
                                                     j % 2 === 1
-                                                        ? <code key={j} style={{ backgroundColor: 'rgba(255,255,255,0.1)', padding: '2px 4px', borderRadius: '4px', fontFamily: 'monospace' }}>{subPart}</code>
+                                                        ? <code key={j} className="bg-[var(--bg-hover)] px-1.5 py-0.5 rounded font-mono text-[11px] text-[var(--primary)]">{subPart}</code>
                                                         : subPart
                                                 ))}
                                             </span>
@@ -235,45 +144,47 @@ Be concise and helpful.
                                 })}
                             </div>
                         </div>
-                    ))}
+                    ))
+                }
 
-                    {loading && (
-                        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                            <div style={{ backgroundColor: '#2d2d2d', color: '#aaa', padding: '8px 12px', borderRadius: '8px', fontSize: '12px', border: '1px solid #333' }}>
-                                Taking a look...
+                {
+                    loading && (
+                        <div className="flex justify-start pl-1">
+                            <div className="flex gap-1 items-center bg-[var(--bg-secondary)] px-3 py-2 rounded-lg text-[10px] text-[var(--text-tertiary)]">
+                                <span className="animate-bounce">●</span>
+                                <span className="animate-bounce delay-100">●</span>
+                                <span className="animate-bounce delay-200">●</span>
                             </div>
                         </div>
-                    )}
-                    <div ref={messagesEndRef} />
-                </div>
+                    )
+                }
+                <div ref={messagesEndRef} />
+            </div >
 
-                {/* Input */}
-                <div style={inputAreaStyle}>
-                    <form
-                        onSubmit={(e) => { e.preventDefault(); sendMessage(); }}
-                        style={{ display: 'flex', gap: '8px', width: '100%', alignItems: 'center' }}
+            {/* Input Area */}
+            < div className="p-3 bg-[var(--bg-panel)] border-t border-[var(--border-subtle)]" >
+                <form
+                    onSubmit={(e) => { e.preventDefault(); sendMessage(); }}
+                    className="flex gap-2 items-center"
+                >
+                    <AudioRecorder onTranscription={(text) => setInput(text)} />
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder="Type a message..."
+                        className="flex-1 bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-[var(--border-default)] rounded px-3 py-2 text-xs focus:outline-none focus:border-[var(--primary)] transition-colors placeholder:text-[var(--text-tertiary)]"
+                    />
+                    <button
+                        type="submit"
+                        disabled={loading || !input.trim()}
+                        className="p-2 text-[var(--text-secondary)] hover:text-[var(--primary)] disabled:opacity-30 transition-colors"
                     >
-                        {/* Audio Recorder */}
-                        <AudioRecorder onTranscription={(text) => setInput(text)} />
-
-                        <input
-                            type="text"
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            placeholder="Ask a question..."
-                            style={textInputStyle}
-                        />
-                        <button
-                            type="submit"
-                            disabled={loading || !input.trim()}
-                            style={{ ...buttonStyle, opacity: (loading || !input.trim()) ? 0.5 : 1 }}
-                        >
-                            Send
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </>
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+                    </button>
+                </form>
+            </div >
+        </div >
     );
 }
 
@@ -337,22 +248,11 @@ function AudioRecorder({ onTranscription }) {
             onMouseUp={stopRecording}
             onTouchStart={startRecording}
             onTouchEnd={stopRecording}
-            style={{
-                backgroundColor: isRecording ? '#ef4444' : '#252526',
-                color: isRecording ? 'white' : '#9ca3af',
-                border: '1px solid #333',
-                borderRadius: '50%',
-                width: '36px',
-                height: '36px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
-            }}
+            className={`w-8 h-8 rounded flex items-center justify-center transition-all bg-[var(--bg-secondary)] border border-[var(--border-default)]
+                ${isRecording ? 'text-[var(--danger)] border-[var(--danger)] bg-[var(--danger-bg)]' : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:border-[var(--text-secondary)]'}`}
             title="Hold to Record"
         >
-            {isRecording ? '⏺' : '🎤'}
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" /><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" /></svg>
         </button>
     );
 }
@@ -361,24 +261,11 @@ function SuggestionButton({ onClick, label }) {
     return (
         <button
             onClick={onClick}
-            style={{
-                width: '100%',
-                textAlign: 'left',
-                backgroundColor: '#2d2d2d',
-                color: '#d4d4d4',
-                padding: '10px 16px',
-                borderRadius: '4px',
-                border: '1px solid #333',
-                cursor: 'pointer',
-                fontSize: '13px',
-                display: 'flex',
-                justifyContent: 'space-between'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#333'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#2d2d2d'}
+            className="w-full text-left bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)] px-3 py-2 rounded border border-[var(--border-default)] text-[11px] flex justify-between transition-colors items-center group"
         >
             {label}
-            <span>→</span>
+            <span className="opacity-0 group-hover:opacity-50 transition-opacity">→</span>
         </button>
     )
 }
+

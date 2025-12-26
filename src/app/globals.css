@@ -1,75 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --card-bg: #171717;
-  --primary: #3b82f6; /* Blue */
-  --accent: #10b981; /* Green */
-  --danger: #ef4444; /* Red */
-  --warning: #f59e0b; /* Yellow/Orange */
-  --border: #333;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* --- Color Palette: LeetCode Dark Clone --- */
+  /* Base Backgrounds */
+  --bg-app: #1a1a1a;
+  /* Main background */
+  --bg-panel: #282828;
+  /* Card/Panel background */
+  --bg-secondary: #3e3e3e;
+  /* Inputs / Secondary elements */
+  --bg-hover: #4a4a4a;
+  /* Hover states */
+
+  /* Borders & Dividers */
+  --border-subtle: #333333;
+  --border-default: #444444;
+  --border-active: #555555;
+
+  /* Text Colors */
+  --text-primary: #eff1f6;
+  /* Main text (almost white) */
+  --text-secondary: #b3b3b3;
+  /* Muted text (gray) */
+  --text-tertiary: #848484;
+  /* Disabled / Footer text */
+  --text-code: #a8aec0;
+  /* Code text color */
+
+  /* Accents (LeetCode Orange/Green) */
+  --primary: #ffa116;
+  /* Simple orange accent */
+  --primary-hover: #ffb84d;
+  --primary-foreground: #1a1a1a;
+
+  /* Functional Colors */
+  --success: #2cbb5d;
+  /* LC Green */
+  --success-bg: rgba(44, 187, 93, 0.15);
+  --warning: #efc310;
+  /* LC Yellow */
+  --warning-bg: rgba(239, 195, 16, 0.15);
+  --danger: #e34c26;
+  /* LC Red */
+  --danger-bg: rgba(227, 76, 38, 0.15);
+
+  /* --- Typography --- */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Menlo", "Monaco", "Consolas", "Courier New", monospace;
+
+  /* Density: Smaller base sizes for tighter UI */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+  --text-2xl: 22px;
+
+  /* --- Spacing System (Compact) --- */
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 8px;
+  --space-4: 12px;
+  --space-6: 16px;
+  --space-8: 24px;
+
+  /* --- Radius (Subtle) --- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+
+  /* --- Shadows (Minimal) --- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Resets & Base --- */
+* {
+  box-sizing: border-box;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  height: 100vh;
+  overflow: hidden;
+  /* App-like feel */
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-h1, h2, h3 {
-  font-weight: 700;
-  letter-spacing: -0.025em;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-/* Utilities */
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+::-webkit-scrollbar-thumb {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-full);
 }
 
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-hover);
 }
 
-.badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
+/* --- Utility Classes (Simulating Tailwind-ish workflow) --- */
+/* --- Components --- */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors border border-transparent cursor-pointer;
+  }
+
+  .btn-primary {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--primary-hover);
+  }
+
+  .btn-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-default);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--bg-hover);
+  }
+
+  .input {
+    @apply bg-[var(--bg-secondary)] border border-[var(--border-default)] text-[var(--text-primary)] rounded-md px-3 py-2 text-sm outline-none transition-colors;
+  }
+
+  .input:focus {
+    border-color: var(--primary);
+  }
+
+  /* Badges */
+  .badge {
+    @apply px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider;
+  }
+
+  .badge-easy,
+  .badge-passed {
+    background: var(--success-bg);
+    color: var(--success);
+  }
+
+  .badge-medium {
+    background: var(--warning-bg);
+    color: var(--warning);
+  }
+
+  .badge-hard,
+  .badge-failed {
+    background: var(--danger-bg);
+    color: var(--danger);
+  }
 }
 
-.badge-easy { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-.badge-medium { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-.badge-hard { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+/* --- Animations --- */
+@layer utilities {
+  .animate-in {
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
 
-.status-todo { color: #888; }
-.status-focused { color: var(--primary); }
-.status-solved { color: var(--accent); }
+  .fade-in {
+    animation-name: fadeIn;
+  }
 
-/* Layouts */
-.grid-cols-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+  .slide-in-from-right {
+    animation-name: slideInRight;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
-
-.flex { display: flex; }
-.items-center { align-items: center; }
-.justify-between { justify-content: space-between; }
-.gap-2 { gap: 0.5rem; }
-.gap-4 { gap: 1rem; }
-.text-sm { font-size: 0.875rem; }
-.text-muted { color: #888; }
