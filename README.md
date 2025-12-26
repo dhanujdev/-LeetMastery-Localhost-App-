@@ -22,6 +22,21 @@ LeetMastery is a local algorithmic practice environment designed to help develop
 - **Local & Private**: All progress and code solutions are stored locally on your machine. You own your data.
 - **Customizable**: Since it's a local Next.js app, you can easily extend functionality, add new problem sets, or tweak the UI to your exact preferences.
 
+## How It's Built
+
+### Ask AI
+The "Ask AI" feature allows you to chat with a local LLM or transcribe voice notes without sending data to the cloud.
+- **Engine**: Built using Apple's [MLX](https://github.com/ml-explore/mlx) framework for efficient on-device machine learning on Apple Silicon.
+- **Models**:
+    - **LLM**: `mlx-community/Llama-3.2-3B-Instruct-4bit` for chat completions.
+    - **ASR**: `mlx-community/whisper-tiny` for fast voice transcription.
+- **Backend**: A dedicated Python FastAPI service (`src/py/ai_server.py`) manages model loading and inference, providing endpoints for the Next.js frontend.
+
+### Visualizer
+The "Visualize" feature helps you understand data structures by rendering them dynamically.
+- **Implementation**: Custom React components (`DataStructureVisualizer.js`) that take raw JSON input and render it into interactive SVG graphics.
+- **Capabilities**: Supports Arrays, Linked Lists, and Binary Trees with automatic layout calculation.
+
 ## Screenshots
 
 ### Home Dashboard
