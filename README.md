@@ -1,6 +1,6 @@
 # LeetMastery
 
-LeetMastery is a local algorithmic practice environment designed to help developers master coding challenges without distractions. It provides a clean, offline-capable interface for tracking progress and solving problems.
+LeetMastery is a free, open source-local AI algorithmic practice environment designed to help developers master coding challenges without distractions. It provides a clean, offline-capable interface for tracking progress and solving problems.
 
 ## Architecture
 
