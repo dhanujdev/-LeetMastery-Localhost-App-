@@ -1,0 +1,243 @@
+[
+  {
+    "id": "1",
+    "title": "Two Sum",
+    "slug": "two-sum",
+    "category": "Arrays & Strings",
+    "difficulty": "Easy",
+    "status": "Solved",
+    "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+    "starterCode": "def twoSum(nums, target):\n    prevMap = {}\n    for i, n in enumerate(nums):\n        diff = target - n\n        if diff in prevMap:\n            return [prevMap[diff], i]\n        prevMap[n] = i",
+    "testCases": [
+      {
+        "input": "nums = [2,7,11,15]; target = 9",
+        "expected": "[0, 1]"
+      },
+      {
+        "input": "nums = [3,2,4]; target = 6",
+        "expected": "[1, 2]"
+      },
+      {
+        "input": "nums = [3,3]; target = 6",
+        "expected": "[0, 1]"
+      }
+    ],
+    "mastery": {
+      "hint": "Use a Hash Map to store values you've seen: `prevMap = { value: index }`. Iterate, check if `target - n` is in map.",
+      "time": "O(n)",
+      "space": "O(n)"
+    }
+  },
+  {
+    "id": "3",
+    "title": "Longest Substring Without Repeating Characters",
+    "slug": "longest-substring-without-repeating-characters",
+    "category": "Arrays & Strings",
+    "difficulty": "Medium",
+    "status": "Todo",
+    "description": "Given a string s, find the length of the longest substring without repeating characters.",
+    "starterCode": "def lengthOfLongestSubstring(s):\n    # Write your code here\n    pass",
+    "testCases": [
+      {
+        "input": "s = \"abcabcbb\"",
+        "expected": "3"
+      },
+      {
+        "input": "s = \"bbbbb\"",
+        "expected": "1"
+      },
+      {
+        "input": "s = \"pwwkew\"",
+        "expected": "3"
+      }
+    ],
+    "mastery": {
+      "hint": "Sliding Window pattern. Use a Set. If char at right pointer `r` is in set, shrink window from left `l` until it's removed.",
+      "time": "O(n)",
+      "space": "O(min(n, m))"
+    }
+  },
+  {
+    "id": "238",
+    "title": "Product of Array Except Self",
+    "slug": "product-of-array-except-self",
+    "category": "Arrays & Strings",
+    "difficulty": "Medium",
+    "status": "Todo",
+    "description": "Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i]. You must write an algorithm that runs in O(n) time and without using the division operation.",
+    "starterCode": "def productExceptSelf(nums):\n    # Write your code here\n    pass",
+    "testCases": [
+      {
+        "input": "nums = [1,2,3,4]",
+        "expected": "[24,12,8,6]"
+      },
+      {
+        "input": "nums = [-1,1,0,-3,3]",
+        "expected": "[0,0,9,0,0]"
+      }
+    ],
+    "mastery": {
+      "hint": "Prefix and Suffix products. Calculate prefix array (product of all left). Then compute suffix product on the fly going right-to-left.",
+      "time": "O(n)",
+      "space": "O(1) (excluding output)"
+    }
+  },
+  {
+    "id": "53",
+    "title": "Maximum Subarray",
+    "slug": "maximum-subarray",
+    "category": "Arrays & Strings",
+    "difficulty": "Medium",
+    "status": "Todo",
+    "description": "Given an integer array nums, find the subarray with the largest sum, and return its sum.",
+    "starterCode": "def maxSubArray(nums):\n    # Write your code here\n    pass",
+    "testCases": [
+      {
+        "input": "nums = [-2,1,-3,4,-1,2,1,-5,4]",
+        "expected": "6"
+      },
+      {
+        "input": "nums = [1]",
+        "expected": "1"
+      },
+      {
+        "input": "nums = [5,4,-1,7,8]",
+        "expected": "23"
+      }
+    ],
+    "mastery": {
+      "hint": "Kadane's Algorithm. Iterate through. If current sum < 0, reset it to 0. Always execute `current_sum += n` and update max.",
+      "time": "O(n)",
+      "space": "O(1)"
+    }
+  },
+  {
+    "id": "206",
+    "title": "Reverse Linked List",
+    "slug": "reverse-linked-list",
+    "category": "Linked Lists",
+    "difficulty": "Easy",
+    "status": "Todo",
+    "description": "Given the head of a singly linked list, reverse the list, and return the reversed list.",
+    "starterCode": "def reverseList(head):\n    # Write your code here\n    pass",
+    "testCases": [
+      {
+        "input": "head = [1,2,3,4,5]",
+        "expected": "[5,4,3,2,1]"
+      },
+      {
+        "input": "head = [1,2]",
+        "expected": "[2,1]"
+      }
+    ],
+    "mastery": {
+      "hint": "Iterative: Use 3 pointers: `prev`, `curr`, `next`. `curr.next = prev`. Move both forward. Return `prev`.",
+      "time": "O(n)",
+      "space": "O(1)"
+    }
+  },
+  {
+    "id": "21",
+    "title": "Merge Two Sorted Lists",
+    "slug": "merge-two-sorted-lists",
+    "category": "Linked Lists",
+    "difficulty": "Easy",
+    "status": "Todo",
+    "description": "You are given the heads of two sorted linked lists list1 and list2. Merge the two lists in a one sorted list. Return the head of the merged linked list.",
+    "starterCode": "def mergeTwoLists(list1, list2):\n    # Write your code here\n    pass",
+    "testCases": [
+      {
+        "input": "list1 = [1,2,4]; list2 = [1,3,4]",
+        "expected": "[1,1,2,3,4,4]"
+      },
+      {
+        "input": "list1 = []; list2 = []",
+        "expected": "[]"
+      }
+    ],
+    "mastery": {
+      "hint": "Dummy node technique. Create `dummy`. While both lists exist, append smaller value to dummy's next. Append remainder.",
+      "time": "O(n + m)",
+      "space": "O(1)"
+    }
+  },
+  {
+    "id": "20",
+    "title": "Valid Parentheses",
+    "slug": "valid-parentheses",
+    "category": "Linear Structures",
+    "difficulty": "Easy",
+    "status": "Todo",
+    "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
+    "starterCode": "def isValid(s):\n    # Write your code here\n    pass",
+    "testCases": [
+      {
+        "input": "s = \"()\"",
+        "expected": "True"
+      },
+      {
+        "input": "s = \"()[]{}\"",
+        "expected": "True"
+      },
+      {
+        "input": "s = \"(]\"",
+        "expected": "False"
+      }
+    ],
+    "mastery": {
+      "hint": "Use a Stack. Push open brackets. For closed brackets, pop specific match from stack. Stack must be empty at end.",
+      "time": "O(n)",
+      "space": "O(n)"
+    }
+  },
+  {
+    "id": "200",
+    "title": "Number of Islands",
+    "slug": "number-of-islands",
+    "category": "Graphs",
+    "difficulty": "Medium",
+    "status": "Todo",
+    "description": "Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.",
+    "starterCode": "def numIslands(grid):\n    # Write your code here\n    pass",
+    "testCases": [
+      {
+        "input": "grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]",
+        "expected": "1"
+      },
+      {
+        "input": "grid = [[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]",
+        "expected": "3"
+      }
+    ],
+    "mastery": {
+      "hint": "DFS or BFS. Loop through every cell. If '1', increment count and run traversal to mark all connected '1's as '0' (visited).",
+      "time": "O(m*n)",
+      "space": "O(m*n) (recursion stack)"
+    }
+  },
+  {
+    "id": "70",
+    "title": "Climbing Stairs",
+    "slug": "climbing-stairs",
+    "category": "Dynamic Programming",
+    "difficulty": "Easy",
+    "status": "Todo",
+    "description": "You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+    "starterCode": "def climbStairs(n):\n    # Write your code here\n    pass",
+    "testCases": [
+      {
+        "input": "n = 2",
+        "expected": "2"
+      },
+      {
+        "input": "n = 3",
+        "expected": "3"
+      }
+    ],
+    "mastery": {
+      "hint": "Fibonacci sequence. Ways(n) = Ways(n-1) + Ways(n-2). Base cases 1 and 2.",
+      "time": "O(n)",
+      "space": "O(1)"
+    }
+  }
+]
